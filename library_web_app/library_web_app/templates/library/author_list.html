@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Author List</title>
+    <style>
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      li {
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        padding: 10px;
+      }
+
+      h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+
+      strong {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Author List</h1>
+    <ul>
+      {% for author in authors %}
+      <li>
+        Name: {{ author.first_name }} {{ author.last_name }} , Email: {{
+        author.email }}
+      </li>
+
+      {% endfor %}
+    </ul>
+  </body>
+</html>
