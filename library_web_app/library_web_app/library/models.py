@@ -13,3 +13,19 @@ class Book(models.Model):
     category = models.CharField(max_length=50)
     genre = models.CharField(max_length=50)
     rating = models.DecimalField(max_digits=3, decimal_places=1)
+    objects = models.Manager()
+
+
+class Author(models.Model):
+    name = models.CharField(max_length=100)
+    birthdate = models.DateField()
+    email = models.EmailField()
+    objects = models.Manager()
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=50)
+
+
+class Genre(models.Model):
+    name = models.CharField(max_length=50)
