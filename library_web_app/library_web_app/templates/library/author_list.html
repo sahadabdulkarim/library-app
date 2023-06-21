@@ -26,14 +26,8 @@
   </head>
   <body>
     <h1>Author List</h1>
-    <ul>
-      {% for author in authors %}
-      <li>
-        Name: {{ author.first_name }} {{ author.last_name }} , Email: {{
-        author.email }}
-      </li>
-
-      {% endfor %}
-    </ul>
+    {% for author in authors %}
+    <p>Name: {{ author.name }}, Email: {{ author.email }}</p>
+    {% endfor %}
   </body>
 </html>

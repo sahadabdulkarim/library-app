@@ -1,3 +1,4 @@
+from .models import Category, Genre
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views import View
 
@@ -17,8 +18,9 @@ def book_list(request):
 
 
 def book_detail(request, book_id):
-    book = get_object_or_404(Book, pk=book_id)
-    return render(request, "library/book_detail.html", {"book": book})
+    book = get_object_or_404(Book, id=book_id)
+    genres = book.genre.all()
+    return render(request, "library/book_detail.html", {"book": book, "genres": genres})
 
 
 class AuthorListView(View):
@@ -31,7 +33,16 @@ def create_book(request):
     if request.method == "POST":
         form = BookForm(request.POST)
         if form.is_valid():
-            form.save()
+            book = form.save(commit=False)
+            category_name = form.cleaned_data.get("category")
+            category = Category.objects.get(name=category_name)
+            book.category = category
+            book.save()
+
+            genre_names = form.cleaned_data.get("genre")
+            genres = Genre.objects.filter(name__in=genre_names)
+            book.genre.set(genres)
+
             return redirect("book_list")
     else:
         form = BookForm()
@@ -49,3 +60,17 @@ class CreateAuthorView(View):
             form.save()
             return redirect("author_list")
         return render(request, "library/create_author.html", {"form": form})
+
+
+def update_book(request, book_id):
+    book = get_object_or_404(Book, id=book_id)
+
+    if request.method == "POST":
+        form = BookForm(request.POST, instance=book)
+        if form.is_valid():
+            form.save()
+            return redirect("book_detail", book_id=book.id)
+    else:
+        form = BookForm(instance=book)
+
+    return render(request, "library/update_book.html", {"form": form})
