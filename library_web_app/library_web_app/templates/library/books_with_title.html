@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Books with "The Great" in Title</title>
+  </head>
+  <body>
+    <h1>Books with "The Great" in Title</h1>
+    <ul>
+      {% for book in books %}
+      <li>{{ book.title }}</li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

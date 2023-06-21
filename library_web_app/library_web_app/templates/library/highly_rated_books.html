@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Highly Rated Books</title>
+  </head>
+  <body>
+    <h1>Highly Rated Books</h1>
+    <ul>
+      {% for book in books %}
+      <li>{{ book.title }} - Rating: {{ book.rating }}</li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

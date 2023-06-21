@@ -14,9 +14,11 @@
     <h4>Author: {{ book.author.name }}</h4>
     <h4>Genres:</h4>
     <ul>
-      {% for genre in book.genre.all %}
+      {% if genres %} {% for genre in genres %}
       <li>{{ genre.name }}</li>
-      {% endfor %}
+      {% endfor %} {% else %}
+      <li>No genres available for this book.</li>
+      {% endif %}
     </ul>
   </body>
 </html>
