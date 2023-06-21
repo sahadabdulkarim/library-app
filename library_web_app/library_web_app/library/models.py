@@ -1,31 +1,54 @@
 from django.db import models
 
-
-class Book(models.Model):
-    title = models.CharField(max_length=100)
-    author = models.CharField(max_length=100)
-    publication_date = models.DateField()
-    created_date = models.DateTimeField(auto_now_add=True)
-    is_available = models.BooleanField(default=True)
-    price = models.DecimalField(max_digits=8, decimal_places=2)
-    description = models.TextField()
-    book_code = models.CharField(max_length=20)
-    category = models.CharField(max_length=50)
-    genre = models.CharField(max_length=50)
-    rating = models.DecimalField(max_digits=3, decimal_places=1)
-    objects = models.Manager()
-
-
-class Author(models.Model):
-    name = models.CharField(max_length=100)
-    birthdate = models.DateField()
-    email = models.EmailField()
-    objects = models.Manager()
+from django.db.models import (
+    CharField,
+    DateField,
+    EmailField,
+    ForeignKey,
+    ManyToManyField,
+    TextField,
+    DateTimeField,
+    BooleanField,
+    FloatField,
+    DecimalField,
+)
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=50)
+    name = CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
 
 
 class Genre(models.Model):
-    name = models.CharField(max_length=50)
+    name = CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
+class Author(models.Model):
+    name = CharField(max_length=100)
+    birthdate = DateField()
+    email = EmailField()
+
+    def __str__(self):
+        return self.name
+
+
+class Book(models.Model):
+    title = CharField(max_length=100, null=False)
+    author = ForeignKey(Author, on_delete=models.CASCADE)
+    publication_date = DateField()
+    created_date = DateTimeField(auto_now_add=True)
+    is_available = BooleanField(default=True)
+    price = DecimalField(max_digits=10, decimal_places=2)
+    description = TextField()
+    book_code = CharField(max_length=10)
+    category = ForeignKey(Category, on_delete=models.CASCADE)
+    genre = ManyToManyField(Genre)
+    rating = FloatField()
+
+    def __str__(self):
+        return self.title
