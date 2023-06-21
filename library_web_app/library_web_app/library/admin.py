@@ -9,12 +9,12 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Genre)
 class GenreAdmin(admin.ModelAdmin):
-    list_display = ("name",)
+    list_display = ("id", "name")
 
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
-    list_display = ("name", "birthdate", "email")
+    list_display = ("id", "name", "birthdate", "email")
 
 
 @admin.register(Book)
